@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KasiTaxi - Fare Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head><body class="bg-white text-black font-sans">
+  <!-- Navbar -->
+  <nav class="bg-green-600 p-4 flex justify-around items-center text-center text-sm">
+    <a href="Homepage.html" class="flex flex-col items-center">
+      <i class="bi bi-house-door-fill text-xl"></i>
+      <span>Home</span>
+    </a>
+    <a href="bookings.html" class="flex flex-col items-center">
+      <i class="bi bi-calendar-check text-xl"></i>
+      <span>Book</span>
+    </a>
+    <a href="map.html" class="flex flex-col items-center">
+      <i class="bi bi-map text-xl"></i>
+      <span>Map</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center">
+      <i class="bi bi-info-circle text-xl"></i>
+      <span>About</span>
+    </a>
+    <a href="feedback.html" class="flex flex-col items-center">
+      <i class="bi bi-chat-left-text text-xl"></i>
+      <span>Feedback</span>
+    </a>
+    <a href="calculator.html" class="flex flex-col items-center">
+      <i class="bi bi-calculator-fill text-xl"></i>
+      <span>Calculator</span>
+    </a>
+  </nav>
+
+ 
+  </nav>  <div class="p-6 max-w-xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4 text-green-600">Fare Calculator</h2><label class="block mb-2 font-semibold">Select Taxi Size:</label>
+<select id="taxiSize" class="w-full p-2 border rounded mb-4">
+  <option value="16">Sesfikile (16 Seats)</option>
+  <option value="22">Minibus (22 Seats)</option>
+</select>
+
+<label class="block mb-2 font-semibold">From:</label>
+<input type="text" id="from" class="w-full p-2 border rounded mb-4">
+
+<label class="block mb-2 font-semibold">To:</label>
+<input type="text" id="to" class="w-full p-2 border rounded mb-4">
+
+<label class="block mb-2 font-semibold">Fare per Passenger (R):</label>
+<input type="number" id="fare" class="w-full p-2 border rounded mb-4">
+
+<button onclick="calculateFare()" class="bg-green-600 text-white px-4 py-2 rounded">Calculate Total Fare</button>
+
+<div id="result" class="mt-6 text-lg"></div>
+
+<hr class="my-6">
+
+<h3 class="text-xl font-semibold mb-2">Money In & Change Calculator</h3>
+<label class="block mb-2 font-semibold">Total Money Received (R):</label>
+<input type="number" id="moneyIn" class="w-full p-2 border rounded mb-4">
+
+<label class="block mb-2 font-semibold">Number of People Paying:</label>
+<input type="number" id="numPeople" class="w-full p-2 border rounded mb-4">
+
+<button onclick="calculateChange()" class="bg-yellow-400 text-black px-4 py-2 rounded">Calculate Change</button>
+
+<div id="changeResult" class="mt-6"></div>
+
+  </div>  <script>
+    let totalFare = 0;
+    let individualFare = 0;
+    let allPayments = [];
+
+    function calculateFare() {
+      const seats = parseInt(document.getElementById('taxiSize').value);
+      const fare = parseFloat(document.getElementById('fare').value);
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+
+      individualFare = fare;
+      totalFare = seats * fare;
+
+      document.getElementById('result').innerHTML = `
+        From <strong>${from}</strong> to <strong>${to}</strong><br>
+        Individual Fare: R${fare.toFixed(2)}<br>
+        Total Fare for ${seats} passengers: <strong class="text-green-600">R${totalFare.toFixed(2)}</strong>
+      `;
+    }
+
+    function calculateChange() {
+      const moneyIn = parseFloat(document.getElementById('moneyIn').value);
+      const numPeople = parseInt(document.getElementById('numPeople').value);
+      const totalPaid = moneyIn;
+      const expectedTotal = individualFare * numPeople;
+      const change = totalPaid - expectedTotal;
+
+      allPayments.push({
+        individuals: numPeople,
+        paid: totalPaid,
+        expected: expectedTotal,
+        change: change
+      });
+
+      let output = '<div class="mt-4">';
+      allPayments.forEach((p, index) => {
+        output += `
+          <div class="p-2 border mb-2 rounded ${p.change >= 0 ? 'bg-green-100' : 'bg-red-100'}">
+            <strong>Transaction ${index + 1}</strong><br>
+            Individuals: ${p.individuals}<br>
+            Paid: R${p.paid.toFixed(2)}<br>
+            Expected: R${p.expected.toFixed(2)}<br>
+            Change: R${p.change.toFixed(2)}
+          </div>
+        `;
+      });
+
+      const totalCollected = allPayments.reduce((sum, p) => sum + p.paid, 0);
+      const totalExpected = allPayments.reduce((sum, p) => sum + p.expected, 0);
+
+      output += `<hr class="my-4">
+        <strong>Total Collected: R${totalCollected.toFixed(2)}</strong><br>
+        <strong>Expected Total: R${totalExpected.toFixed(2)}</strong><br>
+        <strong>Balance: R${(totalCollected - totalExpected).toFixed(2)}</strong>
+        <p class="mt-2 text-green-600">uHambe Kahle! KasiTaxi cares for you.</p>
+      </div>`;
+
+      document.getElementById('changeResult').innerHTML = output;
+    }
+  </script></body></html>

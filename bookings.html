@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KasiTaxi - Bookings</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head><body class="bg-white text-gray-800">
+    <!-- Navbar -->
+  <nav class="bg-green-600 p-4 flex justify-around items-center text-center text-sm">
+    <a href="Homepage.html" class="flex flex-col items-center">
+      <i class="bi bi-house-door-fill text-xl"></i>
+      <span>Home</span>
+    </a>
+    <a href="bookings.html" class="flex flex-col items-center">
+      <i class="bi bi-calendar-check text-xl"></i>
+      <span>Book</span>
+    </a>
+    <a href="map.html" class="flex flex-col items-center">
+      <i class="bi bi-map text-xl"></i>
+      <span>Map</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center">
+      <i class="bi bi-info-circle text-xl"></i>
+      <span>About</span>
+    </a>
+    <a href="feedback.html" class="flex flex-col items-center">
+      <i class="bi bi-chat-left-text text-xl"></i>
+      <span>Feedback</span>
+    </a>
+    <a href="calculator.html" class="flex flex-col items-center">
+      <i class="bi bi-calculator-fill text-xl"></i>
+      <span>Calculator</span>
+    </a>
+  </nav>
+  <!-- Booking Form -->  <div class="max-w-xl mx-auto mt-10 p-6 bg-green-50 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4 text-green-800">Book a Ride</h2>
+    <form id="bookingForm" class="space-y-4">
+      <input type="text" placeholder="Full Name and Surname" class="w-full border p-2 rounded">
+      <input type="number" placeholder="Age" class="w-full border p-2 rounded">
+      <input type="date" class="w-full border p-2 rounded"><label class="block font-semibold">Departure Province</label>
+  <select class="w-full border p-2 rounded">
+    <option>Gauteng</option>
+    <option>KwaZulu-Natal</option>
+    <option>Western Cape</option>
+    <option>Eastern Cape</option>
+    <option>Free State</option>
+    <option>Limpopo</option>
+    <option>Mpumalanga</option>
+    <option>North West</option>
+    <option>Northern Cape</option>
+  </select>
+  <input type="text" placeholder="Location Name From" class="w-full border p-2 rounded">
+
+  <label class="block font-semibold">Arrival Province</label>
+  <select class="w-full border p-2 rounded">
+    <option>Gauteng</option>
+    <option>KwaZulu-Natal</option>
+    <option>Western Cape</option>
+    <option>Eastern Cape</option>
+    <option>Free State</option>
+    <option>Limpopo</option>
+    <option>Mpumalanga</option>
+    <option>North West</option>
+    <option>Northern Cape</option>
+  </select>
+  <input type="text" placeholder="Location Name To" class="w-full border p-2 rounded">
+
+  <button type="button" onclick="generateReceipt()" class="bg-yellow-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded w-full">Submit</button>
+</form>
+
+  </div>  <!-- Result Receipt -->  <div id="receipt" class="max-w-xl mx-auto mt-8 p-6 bg-white rounded shadow hidden">
+    <h3 class="text-xl font-bold mb-4 text-green-700">Booking Receipt</h3>
+    <p><strong>Name:</strong> <span id="rName"></span></p>
+    <p><strong>From:</strong> <span id="rFrom"></span></p>
+    <p><strong>To:</strong> <span id="rTo"></span></p>
+    <p><strong>Travel Time:</strong> <span id="rTime"></span> hrs</p>
+    <p><strong>Distance:</strong> <span id="rDistance"></span> km</p>
+    <p><strong>Price:</strong> R<span id="rPrice"></span></p>
+    <p><strong>Booking No:</strong> <span id="rNumber"></span></p>
+    <p class="mt-4 font-bold text-green-600">uHambe kahle! KasiTaxi cares for you.</p>
+  </div>  <script>
+    function generateReceipt() {
+      const form = document.querySelectorAll('#bookingForm input, #bookingForm select');
+      const name = form[0].value;
+      const fromProvince = form[3].value;
+      const fromLocation = form[4].value;
+      const toProvince = form[5].value;
+      const toLocation = form[6].value;
+
+      const fullFrom = `${fromLocation}, ${fromProvince}`;
+      const fullTo = `${toLocation}, ${toProvince}`;
+      const bookingNo = 'Kasi' + Math.floor(Math.random() * 90000 + 10000);
+
+      // Rough estimation
+      const distance = Math.floor(Math.random() * 100 + 50); // 50 to 150 km
+      const price = (distance * 1.5).toFixed(2);
+      const time = (distance / 60).toFixed(1);
+
+      document.getElementById('rName').innerText = name;
+      document.getElementById('rFrom').innerText = fullFrom;
+      document.getElementById('rTo').innerText = fullTo;
+      document.getElementById('rDistance').innerText = distance;
+      document.getElementById('rPrice').innerText = price;
+      document.getElementById('rTime').innerText = time;
+      document.getElementById('rNumber').innerText = bookingNo;
+
+      document.getElementById('receipt').classList.remove('hidden');
+    }
+  </script></body></html>
