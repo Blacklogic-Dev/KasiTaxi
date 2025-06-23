@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KasiTaxi - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .grid-box {
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+
+<body class="text-white font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-green-600 p-4 flex justify-around items-center text-center text-sm">
+    <a href="Homepage.html" class="flex flex-col items-center">
+      <i class="bi bi-house-door-fill text-xl"></i>
+      <span>Home</span>
+    </a>
+    <a href="bookings.html" class="flex flex-col items-center">
+      <i class="bi bi-calendar-check text-xl"></i>
+      <span>Book</span>
+    </a>
+    <a href="map.html" class="flex flex-col items-center">
+      <i class="bi bi-map text-xl"></i>
+      <span>Map</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center">
+      <i class="bi bi-info-circle text-xl"></i>
+      <span>About</span>
+    </a>
+    <a href="feedback.html" class="flex flex-col items-center">
+      <i class="bi bi-chat-left-text text-xl"></i>
+      <span>Feedback</span>
+    </a>
+    <a href="calculator.html" class="flex flex-col items-center">
+      <i class="bi bi-calculator-fill text-xl"></i>
+      <span>Calculator</span>
+    </a>
+  </nav>
+
+  <!-- Brand Name -->
+  <h1 class="text-center text-4xl text-green-500 mt-6 font-bold">KasiTaxi</h1>
+
+  <!-- Logo Box -->
+  <div class="flex justify-center mt-4">
+    <div class="w-40 h-40 rounded-3xl bg-white p-2">
+      <img src="KasiTaxi.png" alt="KasiTaxi Logo" class="w-full h-full object-contain rounded-3xl" />
+    </div>
+  </div>
+
+  <!-- Background Image & Content -->
+  <div class="mt-6 bg-cover bg-center" style="background-image: url('Rank.jpg');">
+    
+    <!-- What We Do Section -->
+    <div class="flex justify-center pt-10 px-4">
+      <div class="bg-green-500 text-white rounded-2xl p-6 max-w-md shadow-lg text-center">
+        <h2 class="text-2xl font-semibold mb-4">What Do We Do</h2>
+        <p>
+          We offer safe township rides, smart route calculations, convenient bookings,
+          reliable customer feedback services, and digital fare management.
+          KasiTaxi is built for the people, by the people.
+        </p>
+      </div>
+    </div>
+
+    <!-- Grid Features -->
+    <div class="grid grid-cols-2 gap-4 px-4 py-10">
+      <div onclick="toggleColor(this)" class="grid-box bg-white text-black p-4 text-center rounded-xl cursor-pointer">Smart Rides</div>
+      <div onclick="toggleColor(this)" class="grid-box bg-white text-black p-4 text-center rounded-xl cursor-pointer">Live Maps</div>
+      <div onclick="toggleColor(this)" class="grid-box bg-white text-black p-4 text-center rounded-xl cursor-pointer">Instant Bookings</div>
+      <div onclick="toggleColor(this)" class="grid-box bg-white text-black p-4 text-center rounded-xl cursor-pointer">Fare Calculator</div>
+    </div>
+  </div>
+
+  <!-- Background Container With Get Started -->
+  <div class="relative h-screen bg-cover bg-center" style="background-image: url('Rank.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="absolute inset-0 flex justify-center items-center z-10">
+      <a href="signin.html">
+        <button id="getStartedBtn" class="bg-green-500 text-white text-xl px-8 py-4 rounded-full transition duration-300 shadow-lg hover:bg-yellow-500">
+          Get Started
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function toggleColor(box) {
+      if (box.classList.contains('bg-white')) {
+        box.classList.remove('bg-white');
+        box.classList.add('bg-yellow-400');
+      } else if (box.classList.contains('bg-yellow-400')) {
+        box.classList.remove('bg-yellow-400');
+        box.classList.add('bg-green-400');
+      } else if (box.classList.contains('bg-green-400')) {
+        box.classList.remove('bg-green-400');
+        box.classList.add('bg-yellow-400');
+      }
+    }
+
+    const getStartedBtn = document.getElementById('getStartedBtn');
+    let isGreen = true;
+    getStartedBtn.addEventListener('click', () => {
+      if (isGreen) {
+        getStartedBtn.classList.remove('bg-green-500');
+        getStartedBtn.classList.add('bg-yellow-500');
+      } else {
+        getStartedBtn.classList.remove('bg-yellow-500');
+        getStartedBtn.classList.add('bg-green-500');
+      }
+      isGreen = !isGreen;
+    });
+  </script>
+</body>
+
+</html>
